@@ -1,0 +1,82 @@
+{%extends 'base.html'%}
+
+{%block main_block%}
+<h1>WELCOME TO HOME PAGE{{request.user}}</h1>
+
+<div class="container">
+
+    <div class="w-25 border border-3 mx-auto p-3 shadow rounded">
+        <h4>TOTAL EXPENSE : {{total_expense}}</h4>
+    </div>
+
+    <div class="row mt-3">
+        <div class="col-4 p-2 border">
+            <h4 class="text-center fw-bold my-2">Summary</h4>
+            {%for summary in category_summary%}
+                <div class="border rounded-pill p-2 mt-2 d-flex justify-content-around">
+                    <div>{{summary.category}}</div> 
+                    <div>{{summary.count}}</div> 
+                    <div>{{summary.total}}</div>
+                </div>
+            {%endfor%}
+        </div>
+        <div class="col-4">barchart
+            <canvas id="myChart"></canvas>
+        </div>
+        <div class="col-4">Chart2
+            <canvas id="categorychart"></canvas>
+        </div>
+    </div>
+
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script>
+  const ctx = document.getElementById('myChart');
+
+  new Chart(ctx, {
+    type: 'pie',
+    data: {
+      labels: [{%for summary in category_summary%}'{{summary.category}}',{%endfor%}],
+      datasets: [{
+        label: '# of Votes',
+        data: [{%for summary in category_summary%}'{{summary.total}}',{%endfor%}],
+        borderWidth: 1
+      }]
+    },
+    options: {
+      scales: {
+        y: {
+          beginAtZero: true
+        }
+      }
+    }
+  });
+
+
+  const ctx1 = document.getElementById('categorychart');
+
+  new Chart(ctx1, {
+    type: 'bar',
+    data: {
+      labels: [{%for summary in category_summary%}'{{summary.category}}',{%endfor%}],
+      datasets: [{
+        label: '# of Votes',
+        data: [{%for summary in category_summary%}'{{summary.count}}',{%endfor%}],
+        borderWidth: 1
+      }]
+    },
+    options: {
+      scales: {
+        y: {
+          beginAtZero: true
+        }
+      }
+    }
+  });
+</script>
+
+<a href="{%url 'sighnout'%}"class="border border-2 p-2 shadow rounded link-danger">sighnout</a>
+
+{%endblock%}
