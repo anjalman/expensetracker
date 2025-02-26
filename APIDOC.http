@@ -1,0 +1,61 @@
+# api call for create user account
+
+
+###
+POST http://127.0.0.1:8000/api/signup/
+Content-Type: application/json
+
+{
+    "username":"django",
+    "email":"django@gmail.com",
+    "password":"django"
+}
+
+# api for listing all exp
+###
+GET http://127.0.0.1:8000/api/expenses/
+Authorization: Basic anjal:anjal212557
+# api for adding new expence
+
+###
+POST http://127.0.0.1:8000/api/expenses/
+Authorization: Basic anjal:anjal212557
+Content-Type: application/json
+
+
+{
+    "title":"breakfast",
+    "amount":200,
+    "category":"Food"
+
+}
+
+
+
+# api for update
+
+###
+PUT http://127.0.0.1:8000/api/expenses/14/
+Authorization: Basic anjal:anjal212557
+Content-Type: application/json
+
+{
+    "title":"breakfast",
+    "amount":300,
+    "category":"Food"
+
+}
+
+
+# api for delete
+###
+
+DELETE http://127.0.0.1:8000/api/expenses/13/
+Authorization: Basic anjal:anjal212557
+
+# api for expense summary
+
+# api call for fetching a data
+###
+GET http://127.0.0.1:8000/api/expenses/14/
+Authorization: Basic anjal:anjal212557
